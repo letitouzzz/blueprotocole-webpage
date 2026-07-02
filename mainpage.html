@@ -4,13 +4,64 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="main.css">
 </head>
 <body>
-    <bar>
-        <a href="*">Home</a>
-        <a href="*">Buy the game</a>
-        <a href="*">About</a>
-        <a href="*">Contact</a>
-    </bar>
+    <nav class="tactical-navbar">
+        <a href="mainpage.html" class="logo">
+            BLUE <span class="badge">PROTOCOL</span> 
+        </a>
+  
+    <ul class="nav-links">
+        <li><a href="#" class="nav-item active">Dossier</a></li>
+        <li><a href="#" class="nav-item">Incidents</a></li>
+        <li><a href="#" class="nav-item">Investigation</a></li>
+        <li><a href="#" class="nav-item">Archives</a></li>
+    </ul>
+    </nav>
+   <main class="main-content">
+  <div class="terminal-box">
+    <div class="terminal-header">
+      <span class="terminal-dot red"></span>
+      <span class="terminal-dot yellow"></span>
+      <span class="terminal-dot green"></span>
+      <span class="terminal-title">CRIME_LOG_ENTRY_#0812.sh</span>
+    </div>
+
+    
+    <div class="terminal-body">
+      <p class="bash-line"><span class="prompt">root@metro_dept_06:~$</span> ./load_case_file.sh</p>
+      <p class="bash-output">INITIALIZING DECRYPTION... DONE.</p>
+      
+      <p class="game-description">
+        Quatre agents de police. Une intervention de routine qui vire au cauchemar. 
+        Coincés dans une bâtisse coloniale abandonnée, vos caméras corporelles sont vos seuls témoins. 
+        Ce qui se cache dans l'obscurité ne cherche pas à fuir... ████████████. 
+        Restez groupés. Économisez vos batteries. Survivez.
+      </p>
+
+      <p class="bash-line secondary"><span class="prompt">root@metro_dept_06:~$</span> cat rapport_medico_legal.txt</p>
+      <p class="bash-output">ACCÈS AUTORISÉ - NIVEAU 3</p>
+
+      <p class="game-description report-text">
+        Extrait du rapport préliminaire — Salon, rez-de-chaussée.<br/><br/>
+        Les techniciens de scène de crime ont recensé de multiples fragments organiques 
+        éparpillés sur une zone d'environ trois mètres carrés. Les premières analyses ADN 
+        orientent vers deux victimes distinctes, identifiées comme étant le fils et le mari 
+        de la propriétaire des lieux. L'état des restes rend l'identification visuelle 
+        impossible ████████████. Aucune arme n'a été retrouvée sur place. 
+        Le légiste note l'absence de sang au sol malgré l'ampleur des lésions constatées, 
+        une anomalie qui reste à ce jour ████████████.
+      </p>
+      
+      <div class="action-container">
+        <a href="#" class="btn-buy">
+          [ DEPLOY_MISSION / ACHETER ]
+        </a>
+      </div>
+    </div>
+  </div>
+    <div class="vertical-title">BLUE <br> PROTOCOL</div>
+</main>
 </body>
 </html>

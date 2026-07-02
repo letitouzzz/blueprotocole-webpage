@@ -1,0 +1,319 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
+
+body {
+  margin: 0;
+  background-color: #0c0d12;
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* La Navbar tactique (légèrement plus haute pour accueillir le grand logo) */
+.tactical-navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 22px 50px; /* Plus d'espace pour respirer */
+  background-color: #12141c;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  box-sizing: border-box;
+}
+
+/* Style du Logo (Lien principal) */
+.logo {
+  color: #ffffff; /* Première partie en BLANC pur */
+  font-size: 24px; /* Augmenté (anciennement 16px) pour s'imposer */
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  transition: all 0.25s ease-in-out;
+}
+
+/* Deuxième partie du logo en ROUGE */
+.logo span {
+  color: #c62828; /* Rouge tactique mat */
+  margin-left: 0px; /* Espace entre les deux mots */
+  transition: color 0.25s ease-in-out;
+  font-size: 40px; /* Ajusté pour correspondre à la taille du logo principal */
+}
+
+/* Le matricule / badge (ajusté proportionnellement au grand logo) */
+.logo .badge {
+  font-size: 12px;
+  background-color: rgba(255, 255, 255, 0.05); /* Fond discret de base */
+  color: #7e8494; /* Gris de base */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 3px 8px;
+  border-radius: 3px;
+  margin-left: 3px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  transition: all 0.25s ease-in-out;
+  font-size: 24px; /* Ajusté pour correspondre à la taille du logo principal */
+}
+
+/* INTERACTIVITÉ DU LOGO */
+.logo:hover {
+  letter-spacing: 3.5px; /* Effet de focus optique fluide */
+  filter: drop-shadow(0 0 8px rgba(198, 40, 40, 0.3)); /* Halo rouge très subtil autour du logo complet */
+}
+
+.logo:hover span {
+  color: #ff3d3d; /* Le rouge devient plus vif au survol */
+}
+
+.logo:hover .badge {
+  background-color: #c62828; /* Le badge s'allume en rouge */
+  color: #ffffff;
+  border-color: #c62828;
+  box-shadow: 0 0 10px rgba(198, 40, 40, 0.5);
+}
+
+/* Liste des liens de navigation (Taille légèrement ajustée pour l'harmonie) */
+.nav-links {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 25px; /* Un poil plus d'espace entre les menus */
+}
+
+.nav-item {
+  position: relative;
+  color: #7e8494;
+  text-decoration: none;
+  font-size: 14px; /* Passé de 13px à 14px pour suivre le logo */
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  padding: 10px 18px;
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.nav-item:hover, .nav-item.active {
+  color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.03);
+  border-radius: 4px;
+}
+
+.nav-item::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 18px;
+  right: 18px;
+  height: 2px;
+  background-color: #c62828;
+  transform: scaleX(0);
+  transition: transform 0.25s ease-in-out;
+}
+
+.nav-item:hover::after, .nav-item.active::after {
+  transform: scaleX(1);
+}
+
+body {
+  margin: 0;
+  background-color: #0c0d12; /* Le fond reste très sombre par défaut */
+  font-family: 'Montserrat', sans-serif;
+  color: #ffffff;
+  position: relative;
+  min-height: 100vh;
+}
+
+/* Le pseudo-élément pour afficher l'image locale en arrière-plan */
+body::before {
+  content: '';
+  position: fixed; /* L'image ne bouge pas au défilement */
+  top: 60px; /* Décalage pour ne pas couvrir la navbar */
+  left: 0;
+  width: 100%;
+  height: 100%;
+  
+  /* Chemin vers ton image locale (à adapter selon ton dossier) */
+  background-image: url('fond.png'); 
+  
+  background-size: cover; /* L'image prend tout l'écran sans se déformer */
+  background-position: center; /* Centrée pour le recadrage */
+  background-repeat: no-repeat;
+  
+  /* L'effet d'ambiance sombre et discret (12% d'opacité) */
+  opacity: 0.12; 
+  
+  z-index: -1; /* Reste derrière le texte et la navbar */
+  pointer-events: none; /* Ne bloque pas les clics sur le site */
+}
+
+/* Import d'une police Monospace ultra propre pour l'effet Bash */
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&display=swap');
+
+/* Conteneur principal pour caler le contenu à gauche */
+.main-content {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: calc(100vh - 80px); /* Prend toute la hauteur moins la navbar */
+  padding: 0 50px;
+  box-sizing: border-box;
+}
+
+.terminal-box {
+  width: 100%;
+  max-width: 420px; /* Réduit : moins large */
+  min-height: 620px; /* Ajouté : plus haute sur l'axe Y */
+  background-color: rgba(10, 12, 18, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7);
+  font-family: 'Fira Code', monospace;
+  backdrop-filter: blur(4px);
+  display: flex;
+  flex-direction: column;
+}
+
+.terminal-body {
+  padding: 25px;
+  font-size: 14px;
+  line-height: 1.6;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Petite séparation visuelle avant la 2e commande bash */
+.bash-line.secondary {
+  margin-top: 20px;
+}
+
+/* Le texte du rapport, légèrement plus clinique/plus petit */
+.report-text {
+  font-size: 12.5px;
+  color: #b0b4bd;
+  border-left: 2px solid rgba(198, 40, 40, 0.4);
+  padding-left: 12px;
+  margin-bottom: 30px;
+}
+
+/* Pousse le bouton en bas même si le texte est court */
+.action-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: auto;
+}
+
+/* Style des lignes de commandes */
+.bash-line {
+  color: #ffffff;
+  margin: 0 0 5px 0;
+}
+.prompt {
+  color: #c62828; /* Rappel du rouge de ton site pour le prompt */
+  font-weight: 600;
+}
+
+.bash-output {
+  color: #4caf50; /* Vert pour signifier que le script s'est lancé */
+  font-size: 12px;
+  margin: 0 0 20px 0;
+  letter-spacing: 1px;
+}
+
+/* Le texte de description du jeu */
+.game-description {
+  color: #d1d5db;
+  margin-bottom: 30px;
+  text-align: justify;
+}
+
+/* Alignement du bouton en bas à droite de la box */
+.action-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* Le Bouton Acheter Tactique */
+.btn-buy {
+  color: #c62828;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 1px;
+  padding: 10px 20px;
+  border: 1px solid rgba(198, 40, 40, 0.3);
+  background-color: rgba(198, 40, 40, 0.05);
+  border-radius: 4px;
+  transition: all 0.2s ease-in-out;
+}
+
+/* Animation au survol du bouton */
+.btn-buy:hover {
+  color: #ffffff;
+  background-color: #c62828;
+  border-color: #c62828;
+  box-shadow: 0 0 15px rgba(198, 40, 40, 0.4);
+}
+
+.terminal-header {
+  background: linear-gradient(180deg, rgba(35, 38, 48, 0.95), rgba(22, 24, 32, 0.95));
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 6px 6px 0 0;
+}
+
+.terminal-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  position: relative;
+  box-shadow: inset 0 0 0 0.5px rgba(0, 0, 0, 0.15);
+  transition: filter 0.15s ease;
+}
+
+.terminal-dot.red {
+  background: radial-gradient(circle at 30% 30%, #ff7b72, #e0443e);
+}
+.terminal-dot.yellow {
+  background: radial-gradient(circle at 30% 30%, #ffd479, #dea123);
+}
+.terminal-dot.green {
+  background: radial-gradient(circle at 30% 30%, #7ee787, #27a745);
+}
+
+/* Léger effet au survol de la barre entière, comme sur un vrai terminal */
+.terminal-header:hover .terminal-dot {
+  filter: brightness(1.15);
+}
+
+.terminal-title {
+  color: #7e8494;
+  font-size: 11px;
+  margin-left: 8px;
+  letter-spacing: 1px;
+}
+
+/* Import de la police condensée style militaire/stencil */
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
+.main-content {
+  position: relative; /* nécessaire pour positionner le titre en absolu */
+}
+
+.vertical-title {
+  position: absolute;
+  right: 60px;
+  top: 50%;
+  transform: translateY(-50%) rotate(180deg);
+  writing-mode: vertical-rl; /* fait tourner le texte à la verticale */
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 9vw; /* s'adapte à la largeur de l'écran, ajuste si besoin */
+  letter-spacing: 12px;
+  color: rgba(255, 255, 255, 0.06); /* très peu contrasté, presque fondu dans le fond */
+  pointer-events: none; /* n'interfère pas avec les clics */
+  user-select: none;
+  white-space: nowrap;
+  z-index: 0; /* reste derrière la terminal-box si jamais ça chevauche */
+}
