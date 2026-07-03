@@ -299,8 +299,15 @@ body::before {
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
 
 .main-content {
-  position: relative; /* nécessaire pour positionner le titre en absolu */
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 40px;
+  min-height: calc(100vh - 80px);
+  padding: 0 50px;
+  box-sizing: border-box;
 }
+
 
 .vertical-title {
   position: absolute;
@@ -316,4 +323,223 @@ body::before {
   user-select: none;
   white-space: nowrap;
   z-index: 0; /* reste derrière la terminal-box si jamais ça chevauche */
+}
+
+/* --- Bloc bodycam --- */
+.bodycam-hud {
+  position: relative;
+  flex: 1; /* prend tout l'espace restant à côté de la terminal-box */
+  max-width: 850px; /* on retire la limite de 560px */
+  width: auto;
+  aspect-ratio: 16 / 9; /* un peu plus large que 16/10 pour occuper plus de surface */
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.bodycam-media img,
+.bodycam-media video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(15%) contrast(1.1) brightness(0.75);
+}
+
+/* Léger fondu noir sur les bords pour l'effet caméra */
+.bodycam-hud::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,0.65) 100%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* --- Overlay HUD --- */
+.hud-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  font-family: 'Fira Code', monospace;
+  pointer-events: none;
+}
+
+.hud-top,
+.hud-bottom {
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  letter-spacing: 1px;
+  color: rgba(255, 255, 255, 0.85);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
+}
+
+.hud-top { top: 14px; }
+.hud-bottom { bottom: 14px; }
+
+/* Indicateur REC clignotant */
+.rec-indicator {
+  margin-top: 4px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #ff4d4d;
+  font-weight: 600;
+}
+
+.rec-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #ff4d4d;
+  animation: rec-blink 1.2s infinite;
+  margin-left: 4px;
+}
+
+@keyframes rec-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.15; }
+}
+
+/* Batterie */
+.hud-battery {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 3px;
+}
+
+.battery-icon {
+  width: 14px;
+  height: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: 1px;
+  position: relative;
+}
+.battery-icon::before {
+  content: '';
+  position: absolute;
+  inset: 1px;
+  width: 60%;
+  background-color: #4caf50;
+}
+.battery-icon::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  right: -3px;
+  width: 2px;
+  height: 4px;
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+/* Coins façon viseur */
+.hud-corner {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.6);
+}
+.hud-corner.tl { top: 12px; left: 12px; border-right: none; border-bottom: none; }
+.hud-corner.tr { top: 12px; right: 12px; border-left: none; border-bottom: none; }
+.hud-corner.bl { bottom: 12px; left: 12px; border-right: none; border-top: none; }
+.hud-corner.br { bottom: 12px; right: 12px; border-left: none; border-top: none; }
+
+/* Scanlines / glitch discret */
+.glitch-lines {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.025) 0px,
+    rgba(255, 255, 255, 0.025) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  mix-blend-mode: overlay;
+  animation: glitch-shift 6s infinite steps(1);
+}
+
+@keyframes glitch-shift {
+  0%, 92%, 100% { transform: translateY(0); opacity: 0.5; }
+  93% { transform: translateY(-2px); opacity: 0.9; }
+  95% { transform: translateY(1px); opacity: 0.3; }
+  97% { transform: translateY(0); opacity: 0.6; }
+}
+
+.cipher-bar {
+  width: 46%;
+  margin-bottom: 20px;
+  padding: 16px 20px;
+  background-color: rgba(10, 12, 18, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-left: 2px solid rgba(198, 40, 40, 0.5);
+  border-radius: 4px;
+  font-family: 'Fira Code', monospace;
+  backdrop-filter: blur(3px);
+}
+
+.cipher-line {
+  display: flex;
+  gap: 14px;
+  align-items: baseline;
+  font-size: 12.5px;
+  letter-spacing: 1px;
+}
+
+.cipher-line + .cipher-line {
+  margin-top: 0px;
+}
+
+.cipher-label {
+  color: #c62828;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.cipher-text {
+  color: rgba(255, 255, 255, 0.65);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.right-column {
+  display: flex;
+  flex-direction: column;
+  flex: 1; /* prend l'espace que prenait bodycam-hud avant */
+  gap: 16px;
+}
+
+.cipher-text {
+  color: rgba(255, 255, 255, 0.65);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.cipher-text:hover {
+  color: #ffffff;
+  text-shadow: 0 0 8px rgba(198, 40, 40, 0.4);
+}
+
+/* Petit indice visuel discret pour signaler que c'est interactif */
+.cipher-line::after {
+  content: '↻';
+  margin-left: 8px;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.25);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.cipher-line:hover::after {
+  opacity: 1;
 }

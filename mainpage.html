@@ -44,7 +44,7 @@
       <p class="bash-output">ACCÈS AUTORISÉ - NIVEAU 3</p>
 
       <p class="game-description report-text">
-        Extrait du rapport préliminaire — Salon, rez-de-chaussée.<br/><br/>
+        Extrait du rapport préliminaire — Salon, <br> rez-de-chaussée.<br/><br/>
         Les techniciens de scène de crime ont recensé de multiples fragments organiques 
         éparpillés sur une zone d'environ trois mètres carrés. Les premières analyses ADN 
         orientent vers deux victimes distinctes, identifiées comme étant le fils et le mari 
@@ -61,7 +61,127 @@
       </div>
     </div>
   </div>
-    <div class="vertical-title">BLUE <br> PROTOCOL</div>
+<div class="right-column">
+  <div class="cipher-bar">
+    <div class="cipher-line">
+      <span class="cipher-label">[SIG_01]</span>
+      <span class="cipher-text" data-text="LE MIROIR NE MENT JAMAIS, IL SE SOUVIENT SIMPLEMENT MIEUX QUE VOUS — Q4 2026">
+        LE MIROIR NE MENT JAMAIS, IL SE SOUVIENT SIMPLEMENT MIEUX QUE VOUS — Q4 2026
+      </span><br>
+    </div>
+    <div class="cipher-line">
+      <span class="cipher-label">[SIG_02]</span>
+      <span class="cipher-text" data-text="CE QUI RESTE DE LA FAMILLE SORT AU PRINTEMPS">
+        CE QUI RESTE DE LA FAMILLE SORT AU PRINTEMPS      </span>
+    </div>
+  </div>
+
+  <div class="bodycam-hud">
+    <div class="bodycam-media">
+      <video src="bodycam.mp4" autoplay muted></video>
+    </div>
+
+    <div class="hud-overlay">
+      <span class="hud-corner tl"></span>
+      <span class="hud-corner tr"></span>
+      <span class="hud-corner bl"></span>
+      <span class="hud-corner br"></span>
+
+      <div class="hud-top">
+        <div class="rec-indicator">
+          <span class="rec-dot"></span>REC
+        </div>
+        <div class="hud-clock" id="hudClock">00:00:00</div>
+      </div>
+
+      <div class="hud-bottom">
+        <div class="hud-battery">
+          <span class="battery-icon"></span>BATT 74%
+        </div>
+        <div class="hud-date" id="hudDate">--/--/----</div>
+      </div>
+
+      <div class="glitch-lines"></div>
+    </div>
+  </div>
+</div> <!-- ← right-column se ferme ici, après bodycam-hud -->
+
+<div class="vertical-title">BLUE <br> PROTOCOL</div>
 </main>
+
+<script>
+  function updateHudClock() {
+    const now = new Date();
+    const time = now.toLocaleTimeString('fr-FR', { hour12: false });
+    const date = now.toLocaleDateString('fr-FR');
+    document.getElementById('hudClock').textContent = time;
+    document.getElementById('hudDate').textContent = date;
+  }
+  updateHudClock();
+  setInterval(updateHudClock, 1000);
+</script>
+
+<script>
+  const CIPHER_CHARS = "!<>-_\\/[]{}—=+*^?#________";
+
+  function scrambleText(el) {
+    const finalText = el.dataset.text;
+    el.textContent = finalText
+      .split("")
+      .map((char) => {
+        if (char === " ") return " ";
+        return CIPHER_CHARS[Math.floor(Math.random() * CIPHER_CHARS.length)];
+      })
+      .join("");
+  }
+
+  function decryptText(el) {
+    if (el.dataset.decrypting === "true") return;
+    el.dataset.decrypting = "true";
+
+    const finalText = el.dataset.text;
+    let iteration = 0;
+    const speed = 3;
+
+    const interval = setInterval(() => {
+      el.textContent = finalText
+        .split("")
+        .map((char, index) => {
+          if (char === " ") return " ";
+          if (index < iteration) return finalText[index];
+          return CIPHER_CHARS[Math.floor(Math.random() * CIPHER_CHARS.length)];
+        })
+        .join("");
+
+      if (iteration >= finalText.length) {
+        clearInterval(interval);
+        el.dataset.decrypting = "false";
+        el.dataset.state = "decrypted";
+      }
+      iteration += 1 / speed;
+    }, 30);
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const cipherTexts = document.querySelectorAll(".cipher-text");
+
+    cipherTexts.forEach((el) => {
+      // État crypté au chargement, pas d'animation automatique
+      el.dataset.state = "encrypted";
+      scrambleText(el);
+
+      el.addEventListener("click", () => {
+        if (el.dataset.decrypting === "true") return;
+
+        if (el.dataset.state === "encrypted") {
+          decryptText(el); // révèle le message
+        } else {
+          el.dataset.state = "encrypted";
+          scrambleText(el); // re-crypte instantanément
+        }
+      });
+    });
+  });
+</script>
 </body>
 </html>
